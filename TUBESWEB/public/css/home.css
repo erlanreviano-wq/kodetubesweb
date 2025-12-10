@@ -1,0 +1,307 @@
+/* =========================================
+   FILTER KATEGORI
+========================================= */
+
+.menu-filter {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 18px 0 10px;
+    flex-wrap: wrap;
+}
+
+/* tombol kategori (Semua, Makanan, Minuman, Snack) */
+.filter-pill {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    border: none;
+    outline: none;
+    padding: 8px 20px;
+    border-radius: 999px;
+    background: #ffffffee;
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,0.08),
+        inset 0 0 0 1px rgba(0,0,0,0.12);
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.15s ease,
+        box-shadow 0.25s ease;
+}
+
+.filter-pill:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 6px 14px rgba(0,0,0,0.10),
+        inset 0 0 0 1px rgba(0,0,0,0.18);
+}
+
+.filter-pill.active {
+    background: var(--lavender);
+    color: #fff;
+    box-shadow:
+        0 6px 16px rgba(207,168,255,0.35),
+        inset 0 0 0 1px rgba(255,255,255,0.30);
+}
+
+/* =========================================
+   GRID RESEP BERANDA
+========================================= */
+
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 30px;
+}
+
+@media (max-width: 1024px) {
+    .recipe-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .recipe-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================
+   CARD RESEP
+========================================= */
+
+.recipe-card {
+    position: relative;
+    background: var(--card-bg);
+    border-radius: var(--card-border-radius);
+    overflow: hidden;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.recipe-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.16);
+}
+
+/* THUMBNAIL GAMBAR */
+
+.recipe-thumb {
+    background: #ffffff;
+    padding: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.recipe-thumb img {
+    width: 160px;
+    height: 160px;
+    border-radius: 999px;
+    object-fit: cover;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* BODY DI DALAM CARD */
+
+.recipe-body {
+    padding: 20px 22px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 230px;
+    color: var(--text-dark);
+}
+
+.recipe-header {
+    margin-bottom: 2px;
+}
+
+.recipe-title {
+    margin: 0 0 4px;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.recipe-meta-line {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin: 0;
+    color: var(--text-soft);
+}
+
+.recipe-desc {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 6px 0 0;
+}
+
+/* FOOTER: WAKTU & AKSI */
+
+.recipe-footer {
+    margin-top: auto;
+    padding-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+}
+
+/* Kolom kiri: waktu / porsi */
+
+.recipe-time {
+    min-width: 140px;
+    background: var(--lavender-fade);
+    border-radius: 16px;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.recipe-time-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.time-label {
+    font-weight: 600;
+}
+
+.time-value {
+    font-weight: 500;
+}
+
+/* Kolom kanan: link lihat / favorit */
+
+.recipe-actions {
+    flex: 1;
+    text-align: right;
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-end;
+}
+
+.link-primary {
+    color: var(--lavender);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.link-primary:hover {
+    text-decoration: underline;
+}
+
+.link-favorite {
+    color: var(--text-soft);
+    text-decoration: none;
+}
+
+.link-favorite:hover {
+    text-decoration: underline;
+}
+
+.muted {
+    color: var(--text-soft);
+}
+
+/* Box informasi gizi di card beranda */
+.recipe-nutri {
+    min-width: 150px;
+    background: var(--lavender-fade);
+    border-radius: 18px;
+    padding: 10px 12px;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.recipe-nutri-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.recipe-nutri-row .nutri-label {
+    font-weight: 600;
+}
+
+.recipe-nutri-row .nutri-value {
+    font-weight: 500;
+}
+
+/* Tombol Lihat detail & Favorit yang lebih besar */
+.recipe-link-main,
+.recipe-link-favorite {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.18s ease, box-shadow 0.18s ease,
+                transform 0.15s ease, color 0.18s ease;
+}
+
+.recipe-link-main {
+    background: #f2e9ff;
+    color: #7c3aed;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+}
+
+.recipe-link-main:hover {
+    background: #e6ddff;
+    transform: translateY(-1px);
+}
+
+.recipe-link-favorite {
+    background: #ffffff;
+    color: var(--text-soft);
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
+}
+
+.recipe-link-favorite:hover {
+    background: #f8f5ff;
+    color: #6b5b95;
+    transform: translateY(-1px);
+}
+
+/* Responsive untuk card di layar kecil */
+@media (max-width: 640px) {
+    .recipe-body {
+        min-height: 0;
+    }
+
+    .recipe-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .recipe-actions {
+        align-items: flex-start;
+        text-align: left;
+    }
+}

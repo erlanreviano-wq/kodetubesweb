@@ -1,0 +1,1959 @@
+/* =========================================
+   VARIABEL WARNA & GLOBAL
+========================================= */
+:root {
+    --bg-gradient-start: #ffb6e6;
+    --bg-gradient-end:   #cbe7ff;
+
+    --text-dark: #222438;
+    --text-soft: #7a7d9a;
+
+    --lavender:       #c8a4ff;
+    --lavender-soft:  #e9ddff;
+    --lavender-fade:  linear-gradient(135deg, #f6ebff, #e7e3ff);
+
+    --card-bg:   #f7faff;
+    --card-border-radius: 24px;
+
+    /* warna tambahan untuk auth gradient */
+    --pink-soft: #ffc4eb;
+    --blue-soft: #c6e4ff;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    color: var(--text-dark);
+    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+}
+
+.site-main {
+    padding-bottom: 40px;
+}
+
+/* =========================================
+   LAYOUT DASAR HALAMAN
+========================================= */
+
+.page-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 16px;
+}
+
+.section-title {
+    font-size: 2.4rem;
+    margin: 0 0 6px;
+    font-weight: 700;
+}
+
+.page-subtitle {
+    margin-top: 4px;
+    margin-bottom: 16px;
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
+
+/* =========================================
+   FILTER KATEGORI
+========================================= */
+
+.menu-filter {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 18px 0 10px;
+    flex-wrap: wrap;
+}
+
+/* tombol kategori (Semua, Makanan, Minuman, Snack) */
+.filter-pill {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    border: none;
+    outline: none;
+    padding: 8px 20px;
+    border-radius: 999px;
+    background: #ffffffee;
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,0.08),
+        inset 0 0 0 1px rgba(0,0,0,0.12);
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.15s ease,
+        box-shadow 0.25s ease;
+}
+
+.filter-pill:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 6px 14px rgba(0,0,0,0.10),
+        inset 0 0 0 1px rgba(0,0,0,0.18);
+}
+
+.filter-pill.active {
+    background: var(--lavender);
+    color: #fff;
+    box-shadow:
+        0 6px 16px rgba(207,168,255,0.35),
+        inset 0 0 0 1px rgba(255,255,255,0.30);
+}
+
+/* =========================================
+   GRID RESEP
+========================================= */
+
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 30px;
+}
+
+@media (max-width: 1024px) {
+    .recipe-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .recipe-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================
+   CARD RESEP
+========================================= */
+
+.recipe-card {
+    position: relative;
+    background: var(--card-bg);
+    border-radius: var(--card-border-radius);
+    overflow: hidden;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.recipe-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.16);
+}
+
+/* THUMBNAIL GAMBAR */
+
+.recipe-thumb {
+    background: #ffffff;
+    padding: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.recipe-thumb img {
+    width: 160px;
+    height: 160px;
+    border-radius: 999px;
+    object-fit: cover;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* BODY DI DALAM CARD */
+
+.recipe-body {
+    padding: 20px 22px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 230px;
+    color: var(--text-dark);
+}
+
+.recipe-header {
+    margin-bottom: 2px;
+}
+
+.recipe-title {
+    margin: 0 0 4px;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.recipe-meta-line {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin: 0;
+    color: var(--text-soft);
+}
+
+.recipe-desc {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 6px 0 0;
+}
+
+/* FOOTER: WAKTU & AKSI */
+
+.recipe-footer {
+    margin-top: auto;
+    padding-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+}
+
+/* Kolom kiri: waktu / porsi */
+
+.recipe-time {
+    min-width: 140px;
+    background: var(--lavender-fade);
+    border-radius: 16px;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.recipe-time-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.time-label {
+    font-weight: 600;
+}
+
+.time-value {
+    font-weight: 500;
+}
+
+/* Kolom kanan: link lihat / favorit */
+
+.recipe-actions {
+    flex: 1;
+    text-align: right;
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-end;
+}
+
+.link-primary {
+    color: var(--lavender);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.link-primary:hover {
+    text-decoration: underline;
+}
+
+.link-favorite {
+    color: var(--text-soft);
+    text-decoration: none;
+}
+
+.link-favorite:hover {
+    text-decoration: underline;
+}
+
+.muted {
+    color: var(--text-soft);
+}
+
+/* Responsive untuk card di layar kecil */
+@media (max-width: 640px) {
+    .recipe-body {
+        min-height: 0;
+    }
+
+    .recipe-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .recipe-actions {
+        align-items: flex-start;
+        text-align: left;
+    }
+}
+
+/* =========================================
+   BUTTON UTAMA & GHOST
+========================================= */
+
+.btn-main {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: none;
+    background: var(--lavender);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(143, 104, 255, 0.35);
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        background 0.2s ease;
+}
+
+.btn-main:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(143, 104, 255, 0.45);
+    background: #d3b2ff;
+}
+
+.btn-main--small {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+}
+
+.btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: #ffffff33;
+    color: #2f2f3f;
+    font-size: 0.85rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.2s ease;
+}
+
+.btn-ghost:hover {
+    background: #ffffffaa;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+/* =========================================
+   HEADER / NAV (versi besar & longgar)
+========================================= */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: linear-gradient(135deg, #ffd1f4, #e4e6ff);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    padding: 12px 0;                 /* header lebih tinggi */
+}
+
+.nav-inner {
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 14px 24px;              /* navbar lebih besar */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    font-size: 2.1rem;               /* logo diperbesar */
+    font-weight: 800;
+}
+
+.nav-links {
+    display: flex;
+    gap: 48px;                       /* JARAK SANGAT DIJAUHKAN */
+}
+
+.nav-link {
+    font-size: 1.35rem;              /* ukuran tulisan besar */
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #ffffffd9;
+    padding: 4px 6px;
+}
+
+.nav-link.active {
+    color: #fff;
+}
+
+.nav-link.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -8px;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--lavender);
+}
+
+.nav-auth a {
+    font-size: 1.15rem;              /* login & logout lebih besar */
+    padding: 10px 20px;
+    border-radius: 999px;
+}
+/* =========================================
+   FORM LOGIN / REGISTER (versi lama, kalau dipakai)
+========================================= */
+
+.login-box,
+.register-box {
+    max-width: 450px;
+    margin: 40px auto;
+}
+
+.form-card {
+    background: #ffffffdd;
+    border-radius: 16px;
+    padding: 24px 22px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    backdrop-filter: blur(4px);
+}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: 100%;
+    border-radius: 10px;
+    border: 2px solid #f6c3ff;
+    padding: 8px 10px;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+}
+
+/* =========================================
+   DETAIL RESEP
+========================================= */
+
+.detail-recipe {
+    max-width: 800px;
+    margin: 24px auto;
+    padding: 18px 20px 24px;
+    background: #ffffffdd;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.detail-recipe img {
+    max-width: 100%;
+    border-radius: 12px;
+    display: block;
+    margin-bottom: 15px;
+}
+
+/* link umum */
+a {
+    color: #7b2cbf;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* =========================================================
+   AUTH PAGE (LOGIN & REGISTER) – pink / blue pastel style
+========================================================= */
+
+.auth-page {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 16px;
+}
+
+.auth-shell {
+    max-width: 900px;
+    width: 100%;
+}
+
+.auth-card {
+    position: relative;
+    width: 100%;
+    min-height: 420px;
+    border-radius: 24px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    background: #ffffffcc;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(12px);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.auth-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.18);
+}
+
+/* sisi kiri + kanan */
+
+.auth-side {
+    position: relative;
+}
+
+/* KIRI: FORM */
+.auth-side--forms {
+    padding: 28px 32px;
+    background: #fdfdff;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* KANAN: GRADIENT */
+.auth-side--accent {
+    background: linear-gradient(
+        135deg,
+        var(--pink-soft),
+        #f3b4ff,
+        var(--blue-soft)
+    );
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* wrapper dua form (login & signup) */
+
+.auth-forms-wrapper {
+    position: relative;
+    width: 200%;
+    display: flex;
+    transition: transform 0.55s ease;
+}
+
+.auth-form {
+    width: 50%;
+    padding-right: 32px;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.auth-title {
+    margin: 0 0 6px;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.auth-subtitle {
+    margin: 0 0 16px;
+    font-size: 0.9rem;
+    color: var(--text-soft);
+}
+
+/* field */
+
+.auth-field {
+    margin-bottom: 12px;
+}
+
+.auth-field-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+.auth-field label {
+    display: block;
+    font-size: 0.82rem;
+    margin-bottom: 4px;
+    color: var(--text-soft);
+}
+
+.auth-field input {
+    width: 100%;
+    border-radius: 999px;
+    border: 1px solid rgba(171, 171, 248, 0.4);
+    padding: 9px 14px;
+    font-size: 0.9rem;
+    outline: none;
+    background: #ffffff;
+}
+
+.auth-field input:focus {
+    border-color: var(--lavender);
+    box-shadow: 0 0 0 2px rgba(160, 144, 255, 0.25);
+}
+
+/* alert error */
+
+.auth-alert {
+    background: #ffe5ea;
+    color: #b4002b;
+    border-radius: 12px;
+    padding: 8px 10px;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+}
+
+/* row bawah: tombol + remember */
+
+.auth-actions-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+    margin-bottom: 4px;
+}
+
+.auth-btn-main {
+    padding-inline: 30px;
+    border-radius: 999px;
+}
+
+.auth-remember label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+}
+
+.auth-remember input {
+    accent-color: var(--lavender);
+}
+
+/* teks switch */
+
+.auth-switch-text {
+    font-size: 0.85rem;
+    margin-top: 10px;
+}
+
+.auth-switch-link {
+    border: none;
+    background: transparent;
+    color: var(--lavender);
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+}
+
+.auth-switch-link:hover {
+    text-decoration: underline;
+}
+
+/* panel accent kanan */
+
+.auth-accent {
+    position: absolute;
+    inset: 0;
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    pointer-events: none;
+}
+
+.auth-accent h2 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.auth-accent p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* tombol ghost di accent */
+
+.auth-btn-ghost {
+    margin-top: 16px;
+    padding-inline: 26px;
+    cursor: pointer;
+}
+
+/* ======== STATE: LOGIN / SIGNUP ACTIVE ======== */
+
+/* default: card di mode LOGIN */
+.auth-card:not(.auth-card--signup) .auth-forms-wrapper {
+    transform: translateX(0);
+}
+
+.auth-card:not(.auth-card--signup) .auth-form--login {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.auth-card:not(.auth-card--signup) .auth-accent--login {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+/* mode SIGNUP */
+.auth-card.auth-card--signup .auth-forms-wrapper {
+    transform: translateX(-50%);
+}
+
+.auth-card.auth-card--signup .auth-form--signup {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.auth-card.auth-card--signup .auth-accent--signup {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+/* di state sebaliknya, panel disembunyikan & tak bisa diklik */
+.auth-card.auth-card--signup .auth-form--login,
+.auth-card.auth-card--signup .auth-accent--login {
+    opacity: 0;
+    transform: translateX(-40px);
+    pointer-events: none;
+}
+
+.auth-card:not(.auth-card--signup) .auth-form--signup,
+.auth-card:not(.auth-card--signup) .auth-accent--signup {
+    opacity: 0;
+    transform: translateX(40px);
+    pointer-events: none;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+    .auth-card {
+        grid-template-columns: 1fr;
+        min-height: 0;
+    }
+
+    .auth-side--accent {
+        display: none;
+    }
+
+    .auth-side--forms {
+        padding: 26px 22px 24px;
+    }
+
+    .auth-form {
+        width: 100%;
+        padding-right: 0;
+    }
+
+    .auth-forms-wrapper {
+        width: 100%;
+        transform: translateX(0) !important;
+    }
+
+    .auth-card:not(.auth-card--signup) .auth-form--login {
+        opacity: 1 !important;
+        transform: translateX(0) !important;
+    }
+    .auth-card:not(.auth-card--signup) .auth-form--signup {
+        opacity: 0 !important;
+        transform: translateX(0) !important;
+    }
+    .auth-card.auth-card--signup .auth-form--login {
+        opacity: 0 !important;
+        transform: translateX(0) !important;
+    }
+    .auth-card.auth-card--signup .auth-form--signup {
+        opacity: 1 !important;
+        transform: translateX(0) !important;
+    }
+}
+
+/* ==============================
+   NAV PROFILE DROPDOWN
+============================== */
+
+.nav-profile {
+    position: relative;
+}
+
+.profile-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: none;
+    background: #ffffff33;
+    cursor: pointer;
+    color: #fff;
+    font-size: 0.85rem;
+}
+
+.profile-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--lavender);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #fff;
+}
+
+.profile-avatar.big {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+}
+
+.profile-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.1;
+}
+
+.profile-name {
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.profile-role {
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+.profile-caret {
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+/* dropdown */
+
+.profile-dropdown {
+    position: absolute;
+    right: 0;
+    top: 120%;
+    width: 230px;
+    background: #fdfdff;
+    border-radius: 20px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.18);
+    padding: 10px 0;
+    transform-origin: top right;
+    transform: scale(0.9) translateY(-8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    z-index: 80;
+}
+
+.profile-dropdown.is-open {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    pointer-events: auto;
+}
+
+.profile-dropdown-header {
+    padding: 8px 14px 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.profile-dropdown-body {
+    padding: 6px 0;
+}
+
+.profile-dropdown-footer {
+    border-top: 1px solid rgba(0,0,0,0.06);
+    margin-top: 6px;
+    padding-top: 4px;
+}
+
+.profile-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: var(--text-dark);
+}
+
+.profile-item:hover {
+    background: #f5f0ff;
+}
+
+.profile-item.logout {
+    color: #e53935;
+}
+
+/* =====================================================
+   RESEP SAYA – GRID & CARD
+===================================================== */
+
+.my-recipes-page {
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+.my-recipes-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.my-recipes-header .section-title {
+    margin-bottom: 4px;
+}
+
+.my-recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+/* responsif */
+@media (max-width: 1024px) {
+    .my-recipes-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .my-recipes-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .my-recipes-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* CARD */
+
+.my-recipe-card {
+    background: var(--card-bg);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.10);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.my-recipe-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.16);
+}
+
+/* THUMBNAIL */
+
+.my-recipe-thumb {
+    padding: 18px 18px 0;
+}
+
+.my-recipe-thumb img {
+    width: 100%;
+    height: 180px;
+    border-radius: 18px;
+    object-fit: cover;
+    display: block;
+}
+
+.my-recipe-thumb-placeholder {
+    width: 100%;
+    height: 180px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #ffc4eb, #c6e4ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* BODY */
+
+.my-recipe-body {
+    padding: 16px 18px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.my-recipe-title {
+    margin: 0;
+    font-size: 1.02rem;
+    font-weight: 600;
+}
+
+.my-recipe-desc {
+    margin: 4px 0 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-soft);
+}
+
+.my-recipe-meta {
+    margin-top: 4px;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+}
+
+/* AKSI: LIHAT / EDIT / HAPUS */
+
+.my-recipe-actions {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.my-recipe-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition:
+        background 0.15s ease,
+        color 0.15s ease,
+        box-shadow 0.15s ease,
+        transform 0.15s ease;
+}
+
+/* Lihat – lembut ungu */
+.my-recipe-chip--view {
+    background: var(--lavender-soft);
+    color: var(--text-dark);
+    box-shadow: 0 4px 10px rgba(143, 104, 255, 0.25);
+}
+
+.my-recipe-chip--view:hover {
+    background: #e1d1ff;
+    transform: translateY(-1px);
+}
+
+/* Edit – biru pastel */
+.my-recipe-chip--edit {
+    background: #c7e1ff;
+    color: #143b63;
+    box-shadow: 0 4px 10px rgba(68, 137, 255, 0.20);
+}
+
+.my-recipe-chip--edit:hover {
+    background: #b7d8ff;
+    transform: translateY(-1px);
+}
+
+/* Hapus – merah lembut */
+.my-recipe-chip--delete {
+    background: #ffe0e5;
+    color: #b9374b;
+    box-shadow: 0 4px 10px rgba(233, 89, 115, 0.25);
+}
+
+.my-recipe-chip--delete:hover {
+    background: #ffd1da;
+    transform: translateY(-1px);
+}
+
+/* STATE KOSONG */
+
+.my-recipes-empty {
+    margin-top: 30px;
+    padding: 20px 22px;
+    border-radius: 20px;
+    background: #ffffffbb;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+    max-width: 480px;
+}
+
+.my-recipes-empty p {
+    margin: 0 0 10px;
+    font-size: 0.92rem;
+}
+
+/* =========================================
+   EDIT RESEP – CARD CANTIK
+========================================= */
+
+.edit-recipe-page {
+    max-width: 1100px;
+    margin: 40px auto 60px;
+    padding: 0 16px;
+}
+
+.edit-card {
+    background: #ffffffee;
+    border-radius: 24px;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.16);
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.edit-recipe-form {
+    padding: 28px 28px 24px;
+}
+
+.edit-card-header {
+    margin-bottom: 22px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    padding-bottom: 12px;
+}
+
+.edit-card-header h1 {
+    margin: 0 0 4px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.edit-card-header p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-soft);
+}
+
+/* layout dua kolom */
+.edit-card-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.1fr);
+    gap: 26px;
+}
+
+/* kolom kiri: info utama */
+.edit-main-group {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* kolom kanan: gizi + gambar */
+.edit-side-group {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* field generik */
+.edit-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.edit-field label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.edit-field small {
+    font-size: 0.8rem;
+    color: var(--text-soft);
+}
+
+.edit-input,
+.edit-select,
+.edit-textarea {
+    border-radius: 14px;
+    border: 1px solid rgba(171, 171, 248, 0.5);
+    padding: 9px 12px;
+    font-size: 0.9rem;
+    outline: none;
+    background: #ffffff;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.edit-textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.edit-input:focus,
+.edit-select:focus,
+.edit-textarea:focus {
+    border-color: var(--lavender);
+    box-shadow: 0 0 0 2px rgba(160, 144, 255, 0.25);
+}
+
+/* baris kecil: waktu & porsi */
+.edit-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+/* box informasi gizi */
+.edit-nutrition-box {
+    border-radius: 20px;
+    background: linear-gradient(135deg, #f9f0ff, #e9f3ff);
+    padding: 14px 16px 12px;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+}
+
+.edit-nutrition-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+}
+
+.edit-nutrition-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 14px;
+}
+
+/* kartu gambar */
+.edit-image-box {
+    border-radius: 20px;
+    background: #f8f8ff;
+    padding: 14px 16px 18px;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+}
+
+.edit-image-box h3 {
+    margin: 0 0 8px;
+    font-size: 0.95rem;
+}
+
+.edit-image-current {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.edit-image-current img {
+    max-width: 100%;
+    max-height: 220px;
+    border-radius: 18px;
+    object-fit: cover;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* input file & url */
+.edit-file-input {
+    margin-top: 6px;
+    font-size: 0.82rem;
+}
+
+.edit-url-input {
+    margin-top: 6px;
+}
+
+/* footer tombol */
+.edit-card-footer {
+    margin-top: 22px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* responsif */
+@media (max-width: 900px) {
+    .edit-card-body {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .edit-recipe-form {
+        padding: 20px 18px 18px;
+    }
+}
+
+/* ===== FAVORITES PAGE ===== */
+
+.favorites-page {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+}
+
+.favorites-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.favorites-empty {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.75rem;
+}
+
+/* Card melengkung & lembut */
+.favorites-card {
+    background: #fdfdff;
+    border-radius: 24px;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.favorites-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 55px rgba(0, 0, 0, 0.16);
+}
+
+.favorites-thumb {
+    position: relative;
+    width: 100%;
+    padding-top: 62%;
+    overflow: hidden;
+}
+
+.favorites-thumb img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.favorites-thumb-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #fdd0ff, #c8ddff);
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/* Isi card */
+.favorites-body {
+    padding: 1.4rem 1.6rem 1.3rem;
+}
+
+.favorites-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0 0 .35rem;
+    color: #2a2540;
+}
+
+.favorites-meta {
+    margin: 0 0 .75rem;
+    font-size: .82rem;
+    color: #9a8fbf;
+}
+
+.favorites-desc {
+    margin: 0 0 .9rem;
+    font-size: .9rem;
+    color: #514767;
+}
+
+/* Info gizi kecil dalam chip */
+.favorites-nutri {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-bottom: 1rem;
+}
+
+.favorites-nutri-chip {
+    padding: .25rem .6rem;
+    border-radius: 999px;
+    background: rgba(228, 214, 255, 0.4);
+    font-size: .75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: .25rem;
+}
+
+.favorites-nutri-chip .nutri-label {
+    font-weight: 600;
+    color: #6b5b95;
+}
+
+.favorites-nutri-chip .nutri-value {
+    color: #4b3f73;
+}
+
+/* Tombol di bagian bawah card */
+.favorites-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: .75rem;
+}
+
+.fav-btn {
+    flex: 1;
+    text-align: center;
+    border-radius: 999px;
+    padding: .45rem .75rem;
+    font-size: .85rem;
+    font-weight: 500;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: background .18s ease, transform .18s ease, box-shadow .18s ease, color .18s;
+}
+
+.fav-btn-view {
+    background: #ffffff;
+    color: #7c3aed;
+    box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.25);
+}
+
+.fav-btn-view:hover {
+    background: #f3e8ff;
+    transform: translateY(-1px);
+}
+
+.fav-btn-remove {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.fav-btn-remove:hover {
+    background: #fecaca;
+    transform: translateY(-1px);
+}
+
+/* Responsif kecil */
+@media (max-width: 640px) {
+    .favorites-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* Box informasi gizi di card beranda */
+.recipe-nutri {
+    min-width: 150px;
+    background: var(--lavender-fade);
+    border-radius: 18px;
+    padding: 10px 12px;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.recipe-nutri-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.recipe-nutri-row .nutri-label {
+    font-weight: 600;
+}
+
+.recipe-nutri-row .nutri-value {
+    font-weight: 500;
+}
+
+/* Tombol Lihat detail & Favorit yang lebih besar */
+.recipe-link-main,
+.recipe-link-favorite {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.18s ease, box-shadow 0.18s ease,
+                transform 0.15s ease, color 0.18s ease;
+}
+
+.recipe-link-main {
+    background: #f2e9ff;
+    color: #7c3aed;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+}
+
+.recipe-link-main:hover {
+    background: #e6ddff;
+    transform: translateY(-1px);
+}
+
+.recipe-link-favorite {
+    background: #ffffff;
+    color: var(--text-soft);
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
+}
+
+.recipe-link-favorite:hover {
+    background: #f8f5ff;
+    color: #6b5b95;
+    transform: translateY(-1px);
+}
+
+/* kecil: susun vertikal rapi */
+@media (max-width: 640px) {
+    .recipe-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .recipe-actions {
+        align-items: flex-start;
+        text-align: left;
+    }
+}
+
+/* ============================================================
+   ADMIN PAGE – WARNA BARU PASTEL (MATCH TEMA UTAMA)
+============================================================ */
+
+/* Container utama card */
+.admin-card {
+    background: #ffffffdd;                     /* putih lembut */
+    border-radius: 22px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    padding: 20px;
+    border: 1px solid rgba(255, 200, 255, 0.4); /* lavender border */
+}
+
+/* Judul tabel */
+.admin-table thead {
+    background: linear-gradient(135deg, #f2d7ff, #ffe2f5);
+    color: #4a3a6a;
+    font-weight: 700;
+}
+
+/* Baris tabel */
+.admin-table tbody tr {
+    background: #ffffffcc;
+    border-bottom: 1px solid rgba(200, 150, 255, 0.2);
+}
+
+.admin-table tbody tr:hover {
+    background: #f7e9ff;   /* efek hover pastel */
+}
+
+/* Sel tabel */
+.admin-table td,
+.admin-table th {
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    color: #44345e;        /* warna teks lebih lembut */
+}
+
+/* Tombol edit */
+.admin-btn-edit {
+    background: #e2d4ff; 
+    color: #4b2da1;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(124,58,237,0.15);
+}
+.admin-btn-edit:hover {
+    background: #d7c7ff;
+    transform: translateY(-1px);
+}
+
+/* Tombol hapus */
+.admin-btn-delete {
+    background: #ffe0e6;
+    color: #b73449;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(233,89,115,0.20);
+}
+.admin-btn-delete:hover {
+    background: #ffd0da;
+    transform: translateY(-1px);
+}
+
+/* Badge role user/admin */
+.role-badge {
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* role = user */
+.role-user {
+    background: #e6f2ff;
+    color: #2f4a77;
+    box-shadow: 0 4px 10px rgba(110,168,255,0.2);
+}
+
+/* role = admin */
+.role-admin {
+    background: #ffe9b6;
+    color: #8f6400;
+    box-shadow: 0 4px 10px rgba(255,190,80,0.25);
+}
+
+/* ===========================
+   ADMIN – CARD & TABLE
+=========================== */
+
+.admin-card {
+    margin-top: 18px;
+    background: rgba(255, 253, 255, 0.94); /* putih + lavender, cerah */
+    border-radius: 26px;
+    padding: 22px 24px;
+    box-shadow:
+        0 18px 40px rgba(154, 85, 255, 0.18),
+        0 0 0 1px rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+}
+
+.admin-card h2 {
+    margin: 0 0 6px;
+    font-size: 1.3rem;
+}
+
+.admin-card p {
+    margin-top: 0;
+    margin-bottom: 14px;
+}
+
+/* Tabel admin */
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+}
+
+.admin-table thead th {
+    background: linear-gradient(90deg, #f3e6ff, #e6f0ff);
+    color: #413059;
+    padding: 11px 14px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+
+.admin-table tbody td {
+    padding: 9px 14px;
+    color: #34284a;
+    border-bottom: 1px solid rgba(0,0,0,0.03);
+}
+
+.admin-table tbody tr:nth-child(odd) {
+    background: #fff7ff;
+}
+
+.admin-table tbody tr:nth-child(even) {
+    background: #f9f0ff;
+}
+
+.admin-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Tombol aksi */
+
+.admin-btn-edit,
+.admin-btn-delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: background 0.18s ease, color 0.18s ease,
+                box-shadow 0.18s ease, transform 0.12s ease;
+}
+
+.admin-btn-edit {
+    background: #e5f0ff;
+    color: #144168;
+    border-color: rgba(46, 117, 255, 0.35);
+}
+
+.admin-btn-edit:hover {
+    background: #d4e6ff;
+    box-shadow: 0 4px 10px rgba(46, 117, 255, 0.25);
+    transform: translateY(-1px);
+}
+
+.admin-btn-delete {
+    background: #ffe5ec;
+    color: #b3203a;
+    border-color: rgba(230, 82, 109, 0.35);
+    margin-left: 6px;
+}
+
+.admin-btn-delete:hover {
+    background: #ffd6e1;
+    box-shadow: 0 4px 10px rgba(230, 82, 109, 0.25);
+    transform: translateY(-1px);
+}
+/* =====================================================
+   ADMIN TABLE – PASTEL CARD SESUAI TEMA
+===================================================== */
+
+.admin-page {
+    max-width: 1100px;
+    margin: 40px auto 60px;
+    padding: 0 16px;
+}
+
+.admin-back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.85);
+    border: 1px solid rgba(0,0,0,0.05);
+    color: #a855f7;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.admin-back:hover {
+    background: #fef3ff;
+    transform: translateY(-1px);
+}
+
+/* kartu utama */
+.admin-card {
+    background: rgba(255,255,255,0.92);
+    border-radius: 26px;
+    box-shadow: 0 18px 45px rgba(0,0,0,0.18);
+    padding: 22px 24px 24px;
+    backdrop-filter: blur(12px);
+}
+
+.admin-title {
+    margin: 0 0 4px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.admin-subtitle {
+    margin: 0 0 14px;
+    font-size: 0.92rem;
+    color: var(--text-soft);
+}
+
+/* wrapper tabel agar punya sudut lembut */
+.admin-table-wrapper {
+    margin-top: 10px;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.16);
+}
+
+/* tabel */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.98),
+        rgba(247,235,255,0.98)
+    );
+}
+
+.admin-table thead tr {
+    background: linear-gradient(135deg, #fbe7ff, #e7f0ff);
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.admin-table th {
+    font-weight: 600;
+    color: #4c2d7a;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+
+.admin-table tbody tr:nth-child(even) {
+    background: rgba(255,255,255,0.85);
+}
+
+.admin-table tbody tr:hover {
+    background: rgba(244,232,255,0.95);
+}
+
+.admin-col-action {
+    width: 160px;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* chip tombol kecil */
+.admin-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease,
+                box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+/* Edit – ungu pastel */
+.admin-chip--edit {
+    background: #ede9fe;
+    color: #5b21b6;
+    border-color: rgba(91,33,182,0.15);
+    box-shadow: 0 4px 10px rgba(91,33,182,0.18);
+}
+
+.admin-chip--edit:hover {
+    background: #ddd6fe;
+    transform: translateY(-1px);
+}
+
+/* Hapus – merah lembut */
+.admin-chip--delete {
+    background: #fee2e2;
+    color: #b91c1c;
+    border-color: rgba(185,28,28,0.15);
+    box-shadow: 0 4px 10px rgba(185,28,28,0.18);
+}
+
+.admin-chip--delete:hover {
+    background: #fecaca;
+    transform: translateY(-1px);
+}
+
+/* chip non-aktif */
+.admin-chip--disabled {
+    background: rgba(0,0,0,0.03);
+    color: rgba(0,0,0,0.35);
+    border-color: rgba(0,0,0,0.04);
+    cursor: default;
+}
+
+/* tag role admin/user */
+.admin-role-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: rgba(255,255,255,0.9);
+    color: #4b5563;
+}
+
+.admin-role-tag--admin {
+    border-color: rgba(245,158,11,0.6);
+    background: #fffbeb;
+    color: #b45309;
+}
+
+.admin-empty-row {
+    padding: 18px 14px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-soft);
+}
+
+/* sedikit rapat di layar kecil */
+@media (max-width: 640px) {
+    .admin-card {
+        padding: 18px 16px 18px;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        padding: 8px 10px;
+        font-size: 0.82rem;
+    }
+}

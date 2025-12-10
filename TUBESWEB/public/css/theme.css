@@ -1,0 +1,38 @@
+/* public/css/theme.css
+   Theme / variables / background — tidak mengubah warna favoritmu
+*/
+
+:root {
+    --bg-gradient-start: #ffb6e6;
+    --bg-gradient-end:   #cbe7ff;
+
+    --text-dark: #222438;
+    --text-soft: #7a7d9a;
+
+    --lavender:       #c8a4ff;
+    --lavender-soft:  #e9ddff;
+    --lavender-fade:  linear-gradient(135deg, #f6ebff, #e7e3ff);
+
+    --card-bg:   #f7faff;
+    --card-border-radius: 24px;
+
+    --pink-soft: #ffc4eb;
+    --pink:      #ffb6e6;
+    --blue-soft: #c6e4ff;
+    --blue:      #cbe7ff;
+}
+
+/* body gradient pastel (global) */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-dark);
+    background: linear-gradient(135deg, var(--pink-soft) 0%, var(--pink) 30%, var(--blue-soft) 70%, var(--blue) 100%);
+    background-attachment: fixed;
+}
+
+/* small utility */
+.hidden {
+    display: none !important;
+}

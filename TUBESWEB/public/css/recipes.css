@@ -1,0 +1,991 @@
+/* public/css/recipes.css
+   Full file — fokus perbaikan: favorites buttons styling
+   (TIDAK MERUBAH FUNGSI, hanya visual CSS)
+*/
+
+/* =========================================
+   VARIABLES (local to this file)
+========================================= */
+:root {
+    --card-bg: #f7faff;
+    --card-border-radius: 24px;
+    --text-dark: #222438;
+    --text-soft: #7a7d9a;
+    --lavender: #c8a4ff;
+    --lavender-strong: #7c3aed;
+    --lavender-soft: #e9ddff;
+    --lavender-fade: linear-gradient(135deg, #f6ebff, #e7e3ff);
+    --danger-soft: #ffecec;
+    --danger-strong: #ef4444;
+}
+
+/* Safety box-sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Base body / layout tweaks (safe) */
+body {
+    font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--text-dark);
+}
+
+/* =========================================
+   DETAIL RESEP
+========================================= */
+
+.detail-recipe {
+    max-width: 900px;
+    margin: 24px auto;
+    padding: 20px;
+    background: #ffffffdd;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.detail-recipe img {
+    max-width: 100%;
+    border-radius: 12px;
+    display: block;
+    margin-bottom: 15px;
+}
+
+/* =====================================================
+   RESEP SAYA – GRID & CARD
+===================================================== */
+
+.my-recipes-page {
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+.my-recipes-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.my-recipes-header .section-title {
+    margin-bottom: 4px;
+}
+
+/* Recipe grid: use auto-fit so cards expand to fill space */
+.my-recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 28px;
+}
+
+/* responsif */
+@media (max-width: 1200px) {
+    .my-recipes-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+}
+
+@media (max-width: 760px) {
+    .my-recipes-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* CARD */
+
+.my-recipe-card {
+    background: var(--card-bg);
+    border-radius: var(--card-border-radius);
+    overflow: hidden;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.10);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.my-recipe-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.14);
+}
+
+/* THUMBNAIL */
+
+.my-recipe-thumb {
+    padding: 18px 18px 0;
+}
+
+.my-recipe-thumb img {
+    width: 100%;
+    height: 220px;
+    border-radius: 18px;
+    object-fit: cover;
+    display: block;
+}
+
+.my-recipe-thumb-placeholder {
+    width: 100%;
+    height: 220px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #ffc4eb, #c6e4ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* BODY */
+
+.my-recipe-body {
+    padding: 16px 18px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1 1 auto;
+}
+
+.my-recipe-title {
+    margin: 0;
+    font-size: 1.08rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.my-recipe-desc {
+    margin: 4px 0 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text-soft);
+    min-height: 44px; /* menjaga card tidak terlalu pendek */
+}
+
+.my-recipe-meta {
+    margin-top: 4px;
+    font-size: 0.82rem;
+    color: var(--text-soft);
+}
+
+/* AKSI */
+
+.my-recipe-actions {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.my-recipe-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 0.86rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Lihat – lembut ungu */
+.my-recipe-chip--view {
+    background: var(--lavender-soft);
+    color: var(--text-dark);
+    box-shadow: 0 6px 14px rgba(143, 104, 255, 0.18);
+}
+
+.my-recipe-chip--view:hover {
+    background: #e7def8;
+    transform: translateY(-1px);
+}
+
+/* Edit – biru pastel */
+.my-recipe-chip--edit {
+    background: #c7e1ff;
+    color: #143b63;
+    box-shadow: 0 4px 10px rgba(68, 137, 255, 0.20);
+}
+
+.my-recipe-chip--delete {
+    background: #ffe0e5;
+    color: #b9374b;
+    box-shadow: 0 4px 10px rgba(233, 89, 115, 0.25);
+}
+
+/* STATE KOSONG */
+
+.my-recipes-empty {
+    margin-top: 30px;
+    padding: 20px 22px;
+    border-radius: 20px;
+    background: #ffffffbb;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+    max-width: 480px;
+}
+
+.my-recipes-empty p {
+    margin: 0 0 10px;
+    font-size: 0.92rem;
+}
+
+/* =========================================
+   EDIT / CREATE RESEP – CARD CANTIK
+   (full rework for form layout & visuals)
+========================================= */
+
+.edit-recipe-page {
+    max-width: 1100px;
+    margin: 48px auto;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+/* card wrapper */
+.edit-card {
+    background: rgba(255,255,255,0.95);
+    border-radius: 24px;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.14);
+    overflow: hidden;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.6);
+}
+
+/* internal form padding */
+.edit-recipe-form {
+    padding: 28px;
+    display: block;
+}
+
+/* header form */
+.edit-card-header {
+    margin-bottom: 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+
+.edit-card-header h1 {
+    margin: 0 0 6px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.edit-card-header p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-soft);
+}
+
+/* layout dua kolom yang stabil */
+.edit-card-body {
+    display: grid;
+    grid-template-columns: 1fr minmax(260px, 380px); /* kanan kolom tetap 260-380px */
+    gap: 26px;
+    align-items: start;
+}
+
+/* kiri */
+.edit-main-group {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* kanan */
+.edit-side-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* field generik */
+.edit-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.edit-field label {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.edit-input,
+.edit-select,
+.edit-textarea {
+    border-radius: 12px;
+    border: 1px solid rgba(171, 171, 248, 0.35);
+    padding: 9px 12px;
+    font-size: 0.95rem;
+    outline: none;
+    background: #fff;
+    width: 100%;
+    box-sizing: border-box;
+    color: var(--text-dark);
+}
+
+.edit-textarea {
+    min-height: 120px;
+    max-height: 480px;
+    resize: vertical;
+    padding: 10px 12px;
+    overflow: auto;
+}
+
+.edit-input:focus,
+.edit-select:focus,
+.edit-textarea:focus {
+    border-color: var(--lavender);
+    box-shadow: 0 6px 20px rgba(140, 100, 255, 0.08);
+}
+
+/* baris kecil: waktu & porsi */
+.edit-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+/* box informasi gizi (kanan) */
+.edit-nutrition-box {
+    border-radius: 16px;
+    background: linear-gradient(135deg, #fbf7ff, #f3f8ff);
+    padding: 14px 16px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+}
+
+.edit-nutrition-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+}
+
+.edit-nutrition-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+
+/* kartu gambar (kanan) */
+.edit-image-box {
+    border-radius: 16px;
+    background: #f8f9ff;
+    padding: 14px 16px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+}
+
+.edit-image-box h3 {
+    margin: 0 0 8px;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+/* image preview container */
+.edit-image-current {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-height: 420px;   /* prevent image from pushing layout */
+    overflow: hidden;
+    border-radius: 12px;
+    background: #ffffff;
+}
+
+/* preview image rules */
+.edit-image-current img,
+.edit-image-box img,
+.edit-image-box .preview-img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+}
+
+/* footer tombol */
+.edit-card-footer {
+    margin-top: 22px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* tombol spacing */
+.btn-ghost {
+    padding: 8px 16px;
+    border-radius: 999px;
+}
+
+/* responsive: mobile -> stack kolom */
+@media (max-width: 900px) {
+    .edit-card-body {
+        grid-template-columns: 1fr;
+    }
+    .edit-image-current,
+    .edit-image-box { max-height: none; }
+}
+
+/* small adjustments so controls don't look tiny */
+.edit-input[type="number"] {
+    padding: 8px 10px;
+}
+
+.edit-file-input {
+    padding: 6px 0;
+    font-size: 0.95rem;
+}
+
+/* safety: override inline style forcing huge images */
+.edit-image-box img[style],
+.edit-image-current img[style] {
+    max-width: 100% !important;
+    height: auto !important;
+    width: auto !important;
+}
+
+/* =========================================
+   FAVORITES PAGE (rapikan tombol & layout)
+   --- MAIN FOCUS: make the "Lihat" & "Hapus dari Favorit"
+   buttons visually match the nice rounded buttons used
+   elsewhere (recipe cards).
+   - Not touching markup or JS
+   - Only visual improvements below
+========================================= */
+
+.favorites-page {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+}
+
+.favorites-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.favorites-empty {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+/* grid: per card dibuat lebih besar dan responsif */
+.favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.75rem;
+}
+
+/* Card melengkung & lembut */
+.favorites-card {
+    background: #fdfdff;
+    border-radius: 24px;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.favorites-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 55px rgba(0, 0, 0, 0.16);
+}
+
+.favorites-thumb {
+    position: relative;
+    width: 100%;
+    padding-top: 56%;
+    overflow: hidden;
+}
+
+.favorites-thumb img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.favorites-thumb-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #fdd0ff, #c8ddff);
+    color: #fff;
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+/* Isi card */
+.favorites-body {
+    padding: 1.4rem 1.6rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1 1 auto;
+}
+
+.favorites-title {
+    font-size: 1.12rem;
+    font-weight: 700;
+    margin: 0 0 .25rem;
+    color: #2a2540;
+}
+
+.favorites-meta {
+    margin: 0 0 .6rem;
+    font-size: .84rem;
+    color: #9a8fbf;
+}
+
+.favorites-desc {
+    margin: 0 0 .9rem;
+    font-size: .95rem;
+    color: #514767;
+}
+
+/* Info gizi kecil dalam chip */
+.favorites-nutri {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-bottom: 1rem;
+}
+
+.favorites-nutri-chip {
+    padding: .32rem .6rem;
+    border-radius: 999px;
+    background: rgba(228, 214, 255, 0.45);
+    font-size: .78rem;
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+}
+
+.favorites-nutri-chip .nutri-label {
+    font-weight: 600;
+    color: #6b5b95;
+}
+
+.favorites-nutri-chip .nutri-value {
+    color: #4b3f73;
+}
+
+/* Tombol di bagian bawah card:
+   kita ingin tombol "Lihat" dan "Hapus dari Favorit"
+   tampil seperti tombol card lainnya (rounded, shadowed)
+*/
+
+/* container actions */
+.favorites-actions {
+    display: flex;
+    gap: .75rem;
+    margin-top: auto; /* dorong tombol ke bawah agar tinggi card sama */
+    align-items: center;
+    padding-top: 6px;
+}
+
+/* existing classes .fav-btn-view and .fav-btn-remove will be styled */
+/* Make them look like pill buttons with subtle shadows */
+
+/* base button visual - apply to both view & remove */
+.fav-btn {
+    -webkit-tap-highlight-color: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: .6rem 1rem;
+    border-radius: 999px;
+    font-size: .95rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: 0;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .18s ease, background .18s ease;
+    min-width: 110px;
+    box-shadow: 0 8px 20px rgba(124,58,237,0.08);
+}
+
+/* View button: lavender primary-ish */
+.fav-btn-view {
+    background: #ffffff; /* white fill, lavender border/shadow */
+    color: var(--lavender-strong);
+    box-shadow: 0 8px 24px rgba(124,58,237,0.12);
+    border: 1px solid rgba(124,58,237,0.08);
+}
+
+/* Hover/focus */
+.fav-btn-view:hover,
+.fav-btn-view:focus {
+    transform: translateY(-3px);
+    background: #f6f1ff;
+}
+
+/* Remove button: soft red / outline to indicate destructive action */
+.fav-btn-remove {
+    background: linear-gradient(180deg, #fff6f6, #fff0f0);
+    color: var(--danger-strong);
+    border: 1px solid rgba(239,68,68,0.08);
+    box-shadow: 0 6px 18px rgba(239,68,68,0.06);
+}
+
+/* Hover/focus for remove */
+.fav-btn-remove:hover,
+.fav-btn-remove:focus {
+    transform: translateY(-3px);
+    background: #ffecec;
+}
+
+/* Small screens: stack vertically and full width */
+@media (max-width: 640px) {
+    .favorites-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .fav-btn {
+        width: 100%;
+        min-width: 0;
+    }
+}
+
+/* Accessibility: ensure focus rings visible */
+.fav-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(124,58,237,0.10);
+}
+
+/* =========================================
+   GRID RESEP BERANDA — buat card lebih besar dan 'mengisi'
+========================================= */
+
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 28px;
+    margin-top: 30px;
+}
+
+@media (min-width: 1500px) {
+    .recipe-grid {
+        grid-template-columns: repeat(3, minmax(360px, 1fr));
+        gap: 32px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .recipe-grid {
+        grid-template-columns: repeat(2, minmax(320px, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .recipe-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+}
+
+/* =========================================
+   CARD RESEP  (besar, elegan, full-ish)
+========================================= */
+
+.recipe-card {
+    position: relative;
+    background: var(--card-bg);
+    border-radius: var(--card-border-radius);
+    overflow: hidden;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.recipe-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+}
+
+/* THUMBNAIL GAMBAR - besar, melingkar */
+.recipe-thumb {
+    background: #ffffff;
+    padding: 28px 28px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.recipe-thumb img {
+    width: 200px;
+    height: 200px;
+    border-radius: 999px;
+    object-fit: cover;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+/* BODY DI DALAM CARD */
+
+.recipe-body {
+    padding: 20px 26px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 290px;
+    color: var(--text-dark);
+    flex: 1 1 auto;
+}
+
+.recipe-header {
+    margin-bottom: 2px;
+}
+
+.recipe-title {
+    margin: 0 0 6px;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.recipe-meta-line {
+    font-size: 0.88rem;
+    opacity: 0.85;
+    margin: 0;
+    color: var(--text-soft);
+}
+
+.recipe-desc {
+    font-size: 0.98rem;
+    line-height: 1.5;
+    margin: 6px 0 0;
+    color: #534964;
+    min-height: 56px;
+}
+
+/* FOOTER: WAKTU & AKSI */
+.recipe-footer {
+    margin: 0;
+    padding: 16px 22px;
+    background: transparent;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(0,0,0,0.03);
+    box-sizing: border-box;
+}
+
+/* Kolom kiri: waktu / porsi */
+.recipe-time {
+    min-width: 140px;
+    background: var(--lavender-fade);
+    border-radius: 16px;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.recipe-time-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.time-label {
+    font-weight: 600;
+}
+
+.time-value {
+    font-weight: 500;
+}
+
+/* Kolom kanan: link lihat / favorit */
+.recipe-actions {
+    flex: 1;
+    text-align: right;
+    font-size: 0.85rem;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Buttons / links look consistent */
+.recipe-link-main,
+.recipe-link-favorite,
+.link-primary,
+.link-favorite {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 14px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.18s ease, box-shadow 0.18s ease,
+                transform 0.15s ease, color 0.18s ease;
+}
+
+.recipe-link-main {
+    background: #f2e9ff;
+    color: var(--lavender-strong);
+    box-shadow: 0 6px 18px rgba(124, 58, 237, 0.15);
+}
+
+.recipe-link-main:hover {
+    background: #e9e0ff;
+    transform: translateY(-2px);
+}
+
+.recipe-link-favorite {
+    background: #ffffff;
+    color: var(--text-soft);
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.06);
+    font-weight: 600;
+}
+
+.recipe-link-favorite:hover {
+    background: #fbf9ff;
+    color: #6b5b95;
+    transform: translateY(-1px);
+}
+
+/* Box informasi gizi di card beranda (ringkas agar tidak makan space) */
+.recipe-nutri {
+    min-width: 130px;
+    background: var(--lavender-fade);
+    border-radius: 16px;
+    padding: 10px 12px;
+    font-size: 0.82rem;
+    color: var(--text-soft);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Responsive tweaks for small screens */
+@media (max-width: 640px) {
+    .recipe-body {
+        min-height: 0;
+    }
+
+    .recipe-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .recipe-actions {
+        align-items: flex-start;
+        text-align: left;
+        justify-content: flex-start;
+    }
+
+    .recipe-thumb img {
+        width: 140px;
+        height: 140px;
+    }
+
+    .recipe-link-main,
+    .recipe-link-favorite {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* =========================================
+   FILTER KATEGORI (no functional change)
+========================================= */
+
+.menu-filter {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 18px 0 10px;
+    flex-wrap: wrap;
+}
+
+.filter-pill {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+    outline: none;
+    padding: 8px 20px;
+    border-radius: 999px;
+    background: #ffffffee;
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow:
+        0 3px 10px rgba(0,0,0,0.08),
+        inset 0 0 0 1px rgba(0,0,0,0.12);
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.15s ease,
+        box-shadow 0.25s ease;
+}
+
+.filter-pill:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 6px 14px rgba(0,0,0,0.10),
+        inset 0 0 0 1px rgba(0,0,0,0.18);
+}
+
+.filter-pill.active {
+    background: var(--lavender);
+    color: #fff;
+    box-shadow:
+        0 6px 16px rgba(207,168,255,0.35),
+        inset 0 0 0 1px rgba(255,255,255,0.30);
+}
+
+/* =========================================
+   SMALL UTILITY & SAFETY
+========================================= */
+
+/* remove underline from logo if present (visual only) */
+.brand {
+    text-decoration: none !important;
+}
+
+/* small consistent link color */
+a {
+    color: #7b2cbf;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* avoid accidental page-wide style overrides */
+.recipe-card * {
+    box-sizing: border-box;
+}
+
+/* ensure main container doesn't get hidden by sticky header */
+.site-main {
+    padding-top: 36px;
+}

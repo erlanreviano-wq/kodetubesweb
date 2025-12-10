@@ -1,0 +1,247 @@
+/* public/css/admin.css
+   Clean & final admin styles — pastel / white theme
+   -> Pastikan file ini di-<link> setelah theme.css & base.css di header.php
+*/
+
+/* -----------------------
+   Utilities & reset ringkas
+   ----------------------- */
+:root {
+  /* fallback warna bila belum ada di theme.css */
+  --admin-bg-soft: rgba(255,255,255,0.99);
+  --admin-bg-alt: rgba(249,243,255,0.98);
+  --admin-border: rgba(210,190,255,0.28);
+  --admin-shadow: rgba(75,36,120,0.06);
+
+  --text-dark: #2b2b3c;
+  --text-soft: #6f6a7e;
+  --accent-ungu: #4b2d7a;
+  --danger: #b3344a;
+}
+
+.admin-page,
+.admin-card,
+.admin-table-wrapper,
+.admin-table {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* -----------------------
+   Layout container
+   ----------------------- */
+.admin-page {
+  max-width: 1100px;
+  margin: 40px auto 60px;
+  padding: 0 16px;
+  color: var(--text-dark);
+}
+
+/* tombol kembali */
+.admin-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid rgba(0,0,0,0.04);
+  color: var(--accent-ungu);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+}
+.admin-back:hover { background: #fff; transform: translateY(-1px); }
+
+/* -----------------------
+   Card utama / statistik
+   ----------------------- */
+/* sangat spesifik supaya selalu menimpa rule gelap */
+body .admin-page .admin-card,
+.admin-page > .admin-card {
+  background: linear-gradient(180deg, var(--admin-bg-soft), var(--admin-bg-alt)) !important;
+  border-radius: 20px;
+  box-shadow: 0 18px 45px var(--admin-shadow) !important;
+  padding: 22px;
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--admin-border) !important;
+  color: var(--text-dark) !important;
+}
+
+/* judul & subtitle */
+.admin-card .admin-title {
+  margin: 0 0 6px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+.admin-card .admin-subtitle {
+  margin: 0 0 14px;
+  font-size: 0.95rem;
+  color: var(--text-soft);
+}
+
+/* kartu statistik ringkas (jika ada) */
+.dashboard-stat-card,
+.summary-card,
+.stat-card {
+  background: linear-gradient(180deg, #ffffff, #faf4ff) !important;
+  border: 1px solid rgba(200,170,255,0.18) !important;
+  box-shadow: 0 12px 30px rgba(75,36,120,0.06) !important;
+  padding: 14px;
+  border-radius: 14px;
+  color: var(--text-dark) !important;
+}
+
+/* jika ada nested element yang diwariskan warna gelap, reset */
+.admin-card, .admin-card * {
+  color: inherit !important;
+  background: transparent !important;
+}
+
+/* -----------------------
+   Table wrapper & tabel
+   ----------------------- */
+.admin-table-wrapper {
+  margin-top: 10px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 28px rgba(96,36,120,0.04);
+}
+
+/* tabel utama — override paksa */
+.admin-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  background: transparent !important;
+  color: var(--text-dark) !important;
+  font-size: 0.95rem;
+}
+
+/* thead */
+.admin-table thead tr {
+  background: linear-gradient(90deg, rgba(247,235,255,0.95), rgba(238,248,255,0.95)) !important;
+}
+.admin-table thead th {
+  color: var(--accent-ungu) !important;
+  font-weight: 700 !important;
+  padding: 12px 16px !important;
+  text-align: left;
+  border-bottom: 1px solid rgba(0,0,0,0.04) !important;
+}
+
+/* tbody cells */
+.admin-table tbody td {
+  padding: 12px 16px !important;
+  color: #3a2d44 !important;
+  border-bottom: 1px solid rgba(0,0,0,0.03) !important;
+  background: transparent !important;
+}
+
+/* striped rows (terang) */
+.admin-table tbody tr:nth-child(odd) td {
+  background: rgba(255,255,255,0.995) !important;
+}
+.admin-table tbody tr:nth-child(even) td {
+  background: rgba(249,243,255,0.98) !important;
+}
+.admin-table tbody tr:hover td {
+  background: rgba(244,232,255,0.98) !important;
+}
+
+/* kolom aksi lebarnya */
+.admin-col-action { width: 180px; }
+
+/* -----------------------
+   tombol aksi & chip
+   ----------------------- */
+.admin-btn-edit,
+.admin-btn-delete,
+.admin-chip,
+.admin-chip--edit,
+.admin-chip--delete {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 6px 12px !important;
+  border-radius: 999px !important;
+  font-size: 0.88rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  border: 1px solid transparent !important;
+  transition: transform .12s ease, box-shadow .12s ease !important;
+}
+
+/* edit — pastel ungu */
+.admin-btn-edit,
+.admin-chip--edit {
+  background: linear-gradient(180deg,#f3eaff,#efe8ff) !important;
+  color: var(--accent-ungu) !important;
+  border-color: rgba(91,33,182,0.08) !important;
+  box-shadow: 0 6px 14px rgba(91,33,182,0.06) !important;
+}
+.admin-btn-edit:hover, .admin-chip--edit:hover {
+  transform: translateY(-2px) !important;
+  background: #e9e0ff !important;
+}
+
+/* delete — lembut */
+.admin-btn-delete,
+.admin-chip--delete {
+  background: linear-gradient(180deg,#fff0f2,#ffe7ec) !important;
+  color: var(--danger) !important;
+  border-color: rgba(185,28,28,0.06) !important;
+  box-shadow: 0 6px 14px rgba(185,28,28,0.04) !important;
+}
+.admin-btn-delete:hover, .admin-chip--delete:hover {
+  transform: translateY(-2px) !important;
+  background: #ffdde5 !important;
+}
+
+/* -----------------------
+   role badges
+   ----------------------- */
+.admin-role-tag,
+.role-user,
+.role-admin {
+  border-radius: 999px !important;
+  padding: 4px 10px !important;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid rgba(0,0,0,0.04) !important;
+  background: rgba(255,255,255,0.9) !important;
+  color: #4b5563 !important;
+}
+.role-user { background: linear-gradient(180deg,#eef8ff,#ffffff) !important; color: #1f4f7a !important; box-shadow: 0 6px 12px rgba(46,117,255,0.04) !important; }
+.role-admin { background: linear-gradient(180deg,#fff9ec,#fff6df) !important; color: #8f6400 !important; box-shadow: 0 6px 12px rgba(255,190,80,0.06) !important; }
+
+/* empty message */
+.admin-empty-row { padding: 18px 14px; text-align: center; font-size: 0.95rem; color: var(--text-soft); }
+
+/* -----------------------
+   Responsif
+   ----------------------- */
+@media (max-width: 900px) {
+  .admin-card { padding: 16px !important; }
+  .admin-table thead th, .admin-table tbody td { padding: 10px !important; font-size: 0.88rem !important; }
+  .admin-col-action { width: 140px !important; }
+}
+
+/* -----------------------
+   Safeguard overrides
+   - menimpa class gelap jika ada (body.dark / .is-dark)
+   ----------------------- */
+body.dark .admin-card,
+body.is-dark .admin-card,
+.dark-mode .admin-card,
+.admin-card.dark {
+  background: linear-gradient(180deg, var(--admin-bg-soft), var(--admin-bg-alt)) !important;
+  color: var(--text-dark) !important;
+  box-shadow: 0 18px 45px var(--admin-shadow) !important;
+}

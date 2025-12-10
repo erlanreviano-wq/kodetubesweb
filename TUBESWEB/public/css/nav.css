@@ -1,0 +1,72 @@
+/* public/css/nav.css
+   Header / nav styles (pastikan .site-main margin-top cukup) */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: linear-gradient(135deg, #ffd1f4, #e4e6ff);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    padding: 12px 0;
+}
+
+.nav-inner {
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: #fff;
+    text-decoration: none;
+}
+
+.brand span {
+    color: var(--lavender);
+}
+
+.nav-links {
+    display: flex;
+    gap: 36px;
+    align-items: center;
+}
+
+.nav-link {
+    position: relative;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    color: rgba(255,255,255,0.9);
+    padding: 6px 8px;
+    text-decoration: none;
+}
+
+.nav-link.active { color: #fff; }
+
+.nav-link.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -10px;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--lavender);
+}
+
+.nav-auth {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-main--small { padding: 6px 12px; font-size: 0.85rem; }
+
+@media (max-width: 800px) {
+    .nav-links { display: none; } /* simple responsive hide to avoid overflow */
+}
