@@ -1,6 +1,4 @@
 <?php
-// app/Controllers/FavoritesController.php
-
 class FavoritesController
 {
     private $favoriteModel;
@@ -66,4 +64,5 @@ class FavoritesController
         require $baseViewPath . $view . '.php';
         require $baseViewPath . 'layouts/footer.php';
     }
+
 }
