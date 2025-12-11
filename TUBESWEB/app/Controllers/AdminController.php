@@ -1,6 +1,4 @@
 <?php
-// app/Controllers/AdminController.php
-
 class AdminController
 {
     private RecipeModel $recipeModel;
@@ -46,8 +44,6 @@ class AdminController
     public function users_index()
     {
         $this->requireAdmin();
-
-        // gunakan method publik di UserModel yang mengembalikan semua user
         $users = $this->userModel->getAllUsers();
 
         $this->render('admin/users_index', [
@@ -55,14 +51,6 @@ class AdminController
         ]);
     }
 
-    /**
-     * Hapus user.
-     *
-     * Mendukung URL legacy: index.php?url=admin/deleteUser/7
-     * Juga aman jika dipanggil tanpa id (akan redirect kembali).
-     *
-     * Jangan ubah UI lain — hanya lakukan operasi hapus lalu redirect.
-     */
     public function deleteUser(...$params)
     {
         $this->requireAdmin();
@@ -72,8 +60,6 @@ class AdminController
         if (!empty($params) && isset($params[0])) {
             $id = (int)$params[0];
         }
-
-        // Jika belum ada id di segment, coba ambil dari query string id atau POST (fallback)
         if (empty($id)) {
             if (!empty($_POST['user_id'])) {
                 $id = (int)$_POST['user_id'];
@@ -83,12 +69,9 @@ class AdminController
         }
 
         if (empty($id) || $id <= 0) {
-            // tidak valid → kembali ke daftar user (tidak tampilkan 404)
             redirect('admin/users_index');
             return;
         }
-
-        // Safety: jangan izinkan admin menghapus dirinya sendiri
         $currentUserId = (int)($_SESSION['user_id'] ?? 0);
         if ($currentUserId === $id) {
             // kembalikan ke daftar (tidak tampilkan 404)
@@ -98,10 +81,7 @@ class AdminController
 
         try {
             $ok = $this->userModel->deleteById($id);
-            // apakah ingin menampilkan pesan? view saat ini tidak menampilkan flash,
-            // jadi cukup redirect. (Jika ingin flash, bisa set $_SESSION['flash_success'] dsb.)
         } catch (Throwable $e) {
-            // error saat DB — jangan hentikan aplikasi, cukup redirect
             error_log('AdminController::deleteUser error: ' . $e->getMessage());
         }
 
@@ -116,4 +96,5 @@ class AdminController
         require $baseViewPath . $view . '.php';
         require $baseViewPath . 'layouts/footer.php';
     }
+
 }
