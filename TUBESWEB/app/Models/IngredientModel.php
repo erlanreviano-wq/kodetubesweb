@@ -1,6 +1,4 @@
 <?php
-// app/Models/IngredientModel.php
-
 class IngredientModel extends Model
 {
     public function getByRecipeId(int $recipeId): array
@@ -16,3 +14,4 @@ class IngredientModel extends Model
         return $stmt->fetchAll();
     }
 }
+
