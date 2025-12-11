@@ -1,5 +1,4 @@
 <?php
-// app/Models/FavoriteModel.php
 require_once __DIR__ . '/Model.php';
 
 class FavoriteModel extends Model
@@ -40,11 +39,6 @@ class FavoriteModel extends Model
         $rows = $stmt->fetchAll(PDO::FETCH_COLUMN);
         return array_map('intval', $rows ?: []);
     }
-
-    /**
-     * Hitung berapa user yang menandai recipe ini sebagai favorit.
-     * Mengembalikan int (0 kalau tidak ada).
-     */
     public function countByRecipe(int $recipeId): int
     {
         $sql = "SELECT COUNT(*) FROM {$this->table} WHERE recipe_id = :r";
@@ -80,7 +74,6 @@ class FavoriteModel extends Model
                 n.protein,
                 n.carbohydrates,
 
-                -- subquery favorites_count
                 (SELECT COUNT(*) FROM {$favTable} fx WHERE fx.recipe_id = r.recipe_id) AS favorites_count
 
             FROM {$favTable} f
@@ -120,4 +113,5 @@ class FavoriteModel extends Model
 
         return $result ?: [];
     }
+
 }
