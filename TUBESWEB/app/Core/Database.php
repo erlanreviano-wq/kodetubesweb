@@ -1,6 +1,4 @@
 <?php
-// app/Core/Database.php
-
 class Database
 {
     private static ?PDO $instance = null;
@@ -9,9 +7,9 @@ class Database
     {
         if (self::$instance === null) {
             $host    = '127.0.0.1';
-            $db      = 'db_resep_sehat';   // SESUAIKAN dengan nama database kamu
+            $db      = 'db_resep_sehat';   
             $user    = 'root';
-            $pass    = '';                 // kalau pakai password, isi di sini
+            $pass    = '';                 
             $charset = 'utf8mb4';
 
             $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
@@ -31,3 +29,4 @@ class Database
     private function __construct() {}
     private function __clone() {}
 }
+
