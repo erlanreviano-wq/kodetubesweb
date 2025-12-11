@@ -1,5 +1,4 @@
 <?php
-// app/Models/Model.php
 
 abstract class Model
 {
@@ -10,4 +9,5 @@ abstract class Model
     {
         $this->db = Database::getInstance();
     }
+
 }
